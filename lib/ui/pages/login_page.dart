@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gzu_zf_core/gzu_zf_core.dart';
 import 'package:igzut/service/index.dart';
+import 'package:igzut/tools/show_toast.dart';
 import 'package:igzut/service/login_service.dart';
-import 'package:igzut/tools/event_bus.dart';
-import 'package:igzut/tools/g_state.dart';
-import 'package:igzut/tools/toaster.dart';
+import 'package:igzut/tools/types.dart';
+import 'package:igzut/ui/state/index.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,37 +16,44 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  var toaster = getToaster();
-  EventBus eventBus = EventBus();
   String username = "";
   String password = "";
   bool _isLoading = false;
 
-  Future loginHandler(var context) async {
+  Future loginHandler() async {
     final LoginService loginService = LoginService();
+    var globalState = Provider.of<GlobalState>(context, listen: false);
     setState(() {
       _isLoading = true;
     });
     try {
       var impl = await loginService.login(username, password);
-      _isLoading = false;
       Service.zfImpl = impl;
-      toaster("登陆成功");
-      GState.hasLogin = true;
-      GState.stamp = DateTime.timestamp().toString();
-      Navigator.pop(context);
+      var result = await Service.update();
+      globalState.update(
+          result.accountInfo, result.scoreList, result.courseList);
+      setState(() {
+        _isLoading = false;
+      });
+      if (mounted) context.showToast("登陆成功");
+      globalState.setLoginState(NetState.logged);
+      if (mounted) Navigator.pop(context);
     } catch (e) {
-      _isLoading = false;
+      setState(() {
+        _isLoading = false;
+      });
+      var message = "";
       if (e is CannotParse || e is LoginFailed) {
-        toaster("未知错误！");
+        message = "登陆失败";
       } else if (e is PasswordOrUsernameWrong) {
-        toaster("账号或密码错误！");
+        message = "账号或密码错误";
       } else if (e is NetNarrow) {
-        toaster("三秒防刷，请稍候再试");
+        message = "网络拥挤，请稍后再试";
       } else if (e is SchoolNetCannotAccess) {
-        toaster("未连接到校园网");
+        message = "无法连接至校园网";
       }
-      GState.hasLogin = false;
+      if (mounted) context.showToast(message);
+      globalState.setLoginState(NetState.unLogin);
     }
   }
 
@@ -81,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(height: 24.0),
                 ElevatedButton(
-                  onPressed: () => loginHandler(context),
+                  onPressed: loginHandler,
                   child: Text('登录'),
                 ),
               ],

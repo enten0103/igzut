@@ -1,0 +1,1 @@
+class HasNotLogged implements Exception {}

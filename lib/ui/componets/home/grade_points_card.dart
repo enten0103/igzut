@@ -12,66 +12,66 @@ class GradePointsCard extends StatelessWidget {
   final String college;
   @override
   Widget build(context) {
-    return Card(
-        elevation: 0,
-        child: Column(
-          children: [
-            Card(
-              margin: EdgeInsets.zero,
-              child: SizedBox(
-                  child: Container(
-                padding: EdgeInsets.all(10),
-                child: Row(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(gradePoint,
-                            style: GoogleFonts.notoSerif(
-                                fontSize: 24, fontWeight: FontWeight.bold)),
-                        Text(
-                          " /5",
-                          style: GoogleFonts.notoSerif(
-                              fontWeight: FontWeight.w300),
-                        )
-                      ],
-                    ),
-                    Spacer(),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          administrativeClass,
-                          textAlign: TextAlign.right,
-                          style: GoogleFonts.notoSerif(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          college,
-                          textAlign: TextAlign.right,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          style: GoogleFonts.notoSerif(
-                              fontWeight: FontWeight.w200),
-                        )
-                      ],
-                    ),
-                  ],
+    return Padding(
+        padding: EdgeInsets.all(10),
+        child: Stack(children: [
+          Column(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "绩点",
+                  textAlign: TextAlign.start,
+                  style: GoogleFonts.notoSerif(fontSize: 24),
                 ),
-              )),
+              ),
+              SizedBox(height: 10),
+              Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            gradePoint,
+                            style: GoogleFonts.notoSerif(
+                                fontSize: 48, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Row(
+                              children: [
+                                Text(college),
+                                Icon(Icons.school_outlined),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text(administrativeClass),
+                                Icon(Icons.class_outlined)
+                              ],
+                            )
+                          ])
+                    ],
+                  )),
+            ],
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Icon(
+              Icons.school_outlined,
+              size: 100,
+              color: Color.fromARGB(40, 0, 0, 0),
             ),
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    "绩点与学院",
-                    style: GoogleFonts.notoSerif(fontWeight: FontWeight.bold),
-                  ),
-                )
-              ],
-            )
-          ],
-        ));
+          )
+        ]));
   }
 }

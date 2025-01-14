@@ -1,83 +1,77 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CreditEarnCard extends StatefulWidget {
-  const CreditEarnCard({super.key});
+class CreditEarnCard extends StatelessWidget {
+  const CreditEarnCard(
+      {super.key,
+      required this.credit,
+      required this.name,
+      required this.studentNumber});
+  final String credit;
+  final String name;
+  final String studentNumber;
   @override
-  State<StatefulWidget> createState() => _CreditEarnCardState();
-}
-
-class _CreditEarnCardState extends State<CreditEarnCard> {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-        elevation: 0,
-        child: Column(
-          children: [
-            Card(
-              margin: EdgeInsets.zero,
-              child: SizedBox(
-                  child: Container(
-                padding: EdgeInsets.all(10),
-                child: Row(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text("160",
-                            style: GoogleFonts.notoSerif(
-                                fontSize: 24, fontWeight: FontWeight.bold)),
-                        Text(
-                          "/162",
-                          style: GoogleFonts.notoSerif(
-                              fontWeight: FontWeight.w300),
-                        )
-                      ],
-                    ),
-                    Spacer(),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              "13",
-                              textAlign: TextAlign.right,
-                              style: GoogleFonts.notoSerif(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                            Text("/15",
-                                style: GoogleFonts.notoSerif(
-                                    fontWeight: FontWeight.w300))
-                          ],
-                        ),
-                        Text(
-                          "本学期已选与已修",
-                          textAlign: TextAlign.right,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          style: GoogleFonts.notoSerif(
-                              fontWeight: FontWeight.w200),
-                        )
-                      ],
-                    ),
-                  ],
+  Widget build(context) {
+    return Padding(
+        padding: EdgeInsets.all(10),
+        child: Stack(children: [
+          Column(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "学分",
+                  textAlign: TextAlign.start,
+                  style: GoogleFonts.notoSerif(fontSize: 24),
                 ),
-              )),
+              ),
+              SizedBox(height: 10),
+              Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            credit,
+                            style: GoogleFonts.notoSerif(
+                                fontSize: 48, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Row(
+                              children: [
+                                Text(name),
+                                Icon(Icons.badge_outlined),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text(studentNumber),
+                                Icon(Icons.numbers_outlined)
+                              ],
+                            )
+                          ])
+                    ],
+                  )),
+            ],
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Icon(
+              Icons.badge_outlined,
+              size: 100,
+              color: Color.fromARGB(40, 0, 0, 0),
             ),
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    "学分与已修",
-                    style: GoogleFonts.notoSerif(fontWeight: FontWeight.bold),
-                  ),
-                )
-              ],
-            )
-          ],
-        ));
+          )
+        ]));
   }
 }

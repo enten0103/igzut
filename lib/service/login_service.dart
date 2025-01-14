@@ -1,4 +1,5 @@
 import 'package:gzu_zf_core/gzu_zf_core.dart';
+import 'package:igzut/exception/has_not_logged.dart';
 import 'package:igzut/service/index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -7,8 +8,8 @@ class LoginService {
     final pref = await SharedPreferences.getInstance();
     var username = pref.getString('username');
     var password = pref.getString('password');
-    if (username == null || password == null) return;
-    var impl = ZfImpl.getImpl(username, password);
+    if (username == null || password == null) throw HasNotLogged();
+    var impl = ZfImpl.getImpl(username, password, "vpn.gzu.edu.cn:443");
     await impl.login();
     Service.zfImpl = impl;
   }

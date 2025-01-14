@@ -10,6 +10,6 @@ class CurriculumPage extends StatefulWidget {
 class _CurriculumPageState extends State<CurriculumPage> {
   @override
   Widget build(BuildContext context) {
-    return Text("课表页面");
+    return Text("日程");
   }
 }

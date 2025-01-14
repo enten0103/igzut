@@ -17,7 +17,7 @@ dependencies:
   google_fonts: ^6.2.1
   shared_preferences: ^2.3.4
   logger: ^2.5.0
-  fluttertoast: ^8.2.10
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:
