@@ -7,13 +7,13 @@ class SideYearBar extends StatefulWidget {
       {super.key,
       required this.terms,
       required this.natures,
-      required this.onPresse});
+      required this.onSelectTermChange});
 
   final List<String> terms;
 
   final List<String> natures;
 
-  final Function(String) onPresse;
+  final Function(int) onSelectTermChange;
 
   @override
   State<SideYearBar> createState() => _SideYearBarState();
@@ -21,34 +21,21 @@ class SideYearBar extends StatefulWidget {
 
 class _SideYearBarState extends State<SideYearBar> {
   var selectTerm = 1;
-  Set<String> extractAndDeduplicate(List<String> data) {
-    Set<String> resultSet = {};
-    RegExp regExp = RegExp(r"\((\d{4}-\d{4}-\d)\)");
-    for (String item in data) {
-      Match? match = regExp.firstMatch(item);
-      if (match != null) {
-        resultSet.add(match.group(1)!);
-      }
-    }
-
-    return resultSet;
-  }
 
   @override
   Widget build(BuildContext context) {
-    var terms = extractAndDeduplicate(widget.terms).toList();
     return Padding(
         padding: EdgeInsets.only(left: 10, right: 10),
         child: SizedBox(
             width: 80,
             child: ListView.builder(
-                itemCount: terms.length + 2,
+                itemCount: widget.terms.length + 2,
                 itemBuilder: (context, index) {
                   var resultText = "";
                   if (index == 0) {
                     return IconButton(
                         onPressed: () async {
-                          final result = await showModalBottomSheet<String>(
+                          await showModalBottomSheet<String>(
                             context: context,
                             builder: (context) {
                               return CourseDarwer(
@@ -61,7 +48,7 @@ class _SideYearBarState extends State<SideYearBar> {
                   } else if (index == 1) {
                     resultText = "全部";
                   } else {
-                    var result = terms[index - 2].split("-");
+                    var result = widget.terms[index - 2].split("-");
                     if (result[2] == "1") {
                       resultText = "${result[0]}-秋";
                     } else {
@@ -71,12 +58,8 @@ class _SideYearBarState extends State<SideYearBar> {
 
                   return ElevatedButton(
                       onPressed: () {
-                        if (index == 0 || index == 1) {
-                          widget.onPresse("all");
-                        } else {
-                          widget.onPresse(terms[index - 2]);
-                        }
                         if (index != 0) {
+                          widget.onSelectTermChange(index);
                           setState(() {
                             selectTerm = index;
                           });

@@ -6,14 +6,14 @@ import 'package:igzut/ui/componets/home/other_action_card.dart';
 import 'package:igzut/ui/state/index.dart';
 import 'package:provider/provider.dart';
 
-class DashBoardPage extends StatefulWidget {
-  const DashBoardPage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<DashBoardPage> createState() => _DashBoardState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _DashBoardState extends State<DashBoardPage> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Center(

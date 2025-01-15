@@ -3,7 +3,7 @@ import 'package:igzut/ui/componets/salomon_botton_bar.dart';
 import 'package:igzut/ui/componets/wifi_connect_icon.dart';
 import 'package:igzut/ui/pages/main/course_page.dart';
 import 'package:igzut/ui/pages/main/curriculum_page.dart';
-import 'package:igzut/ui/pages/main/dash_board_page.dart';
+import 'package:igzut/ui/pages/main/home_page.dart';
 import 'package:igzut/ui/state/index.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +15,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final List<Widget> pages = [DashBoardPage(), CoursePage(), CurriculumPage()];
+  final List<Widget> pages = [HomePage(), CoursePage(), CurriculumPage()];
   final List<String> titles = ["主页", "课程", "日程"];
   final List<IconData> icos = [
     Icons.dashboard,
@@ -46,7 +46,7 @@ class _MainPageState extends State<MainPage> {
         title: Text(titles[selectedPageIndex]),
         leading:
             IconButton(onPressed: () {}, icon: Icon(icos[selectedPageIndex])),
-        actions: [WifiConnectIcon()],
+        actions: [Text("213"), WifiConnectIcon()],
       ),
       body: pages[selectedPageIndex],
       bottomNavigationBar: SalomonBottomBar(
