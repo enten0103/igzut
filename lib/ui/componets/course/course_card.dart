@@ -38,7 +38,7 @@ class CourseCard extends StatelessWidget {
               ),
               if (course.classLocation != "")
                 Row(
-                  children: [Text("地点 ${course.classLocation}")],
+                  children: [Text("地点 ${course.classLocation.split(";")[0]}")],
                 ),
               if (course.classTime != "e;")
                 Row(

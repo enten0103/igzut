@@ -1,6 +1,8 @@
 import 'package:gzu_zf_core/gzu_zf_core.dart';
 
-enum NetState { unLogin, cannotAccess, loading, logged }
+enum NetState { cannotAccess, loading, success }
+
+enum LoginState { unlogin, success, failed }
 
 class UpdateResult {
   Account? accountInfo;
@@ -24,4 +26,16 @@ class FullCourse {
   Course course;
   Score? score;
   FullCourse({required this.course, required this.score});
+}
+
+class CurriculumItem {
+  String courseName;
+  String teacherName;
+  String time;
+  List<MapEntry<String, String>> timeAndLocation;
+  CurriculumItem(
+      {required this.timeAndLocation,
+      required this.teacherName,
+      required this.courseName,
+      required this.time});
 }

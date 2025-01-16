@@ -29,14 +29,10 @@ class _LoginPageState extends State<LoginPage> {
     try {
       var impl = await loginService.login(username, password);
       Service.zfImpl = impl;
-      var result = await Service.update();
-      globalState.update(
-          result.accountInfo, result.scoreList, result.courseList);
       setState(() {
         _isLoading = false;
       });
       if (mounted) context.showToast("登陆成功");
-      globalState.setLoginState(NetState.logged);
       if (mounted) Navigator.pop(context);
     } catch (e) {
       setState(() {
@@ -52,8 +48,12 @@ class _LoginPageState extends State<LoginPage> {
       } else if (e is SchoolNetCannotAccess) {
         message = "无法连接至校园网";
       }
+      if (message == "无法连接至校园网") {
+        globalState.setNetState(NetState.cannotAccess);
+      } else {
+        globalState.setNetState(NetState.success);
+      }
       if (mounted) context.showToast(message);
-      globalState.setLoginState(NetState.unLogin);
     }
   }
 
