@@ -5,9 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class CourseRepo {
   final String _selectCourseKey = "course_key";
-  update(List<Course> scoreRows) async {
+  update(List<Course> courseList) async {
     final prefs = await SharedPreferences.getInstance();
-    final strs = scoreRows.map((e) => e.toJsonStr());
+    final strs = courseList.map((e) => e.toJsonStr());
     prefs.setStringList(_selectCourseKey, strs.toList());
   }
 

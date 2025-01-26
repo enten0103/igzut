@@ -39,3 +39,9 @@ class CurriculumItem {
       required this.courseName,
       required this.time});
 }
+
+class CourseFilterDrawerState {
+  List<bool> passState = [true, true, true];
+  List<bool> necessery = [true, true];
+  List<bool> nature = [];
+}

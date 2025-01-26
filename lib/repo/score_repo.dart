@@ -6,9 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ScoreRepo {
   final String _scoreListKey = "score_list";
 
-  update(List<Score> scoreRows) async {
+  update(List<Score> scoreList) async {
     final prefs = await SharedPreferences.getInstance();
-    final strs = scoreRows.map((e) => e.toJsonStr());
+    final strs = scoreList.map((e) => e.toJsonStr());
     prefs.setStringList(_scoreListKey, strs.toList());
   }
 
