@@ -45,14 +45,16 @@ class HomePage extends StatelessWidget {
                     college: userInfoController.college.value),
                 const SizedBox(height: 10),
                 CreditEarnCard(
-                    credit: courseDataController.credit.value,
+                    weightedAverageScore:
+                        courseDataController.weightedAverageScore.value,
                     name: userInfoController.name.value,
                     studentNumber: userInfoController.studentNumber.value),
                 const SizedBox(height: 10),
                 CoursesInfoCard(
                     all: courseDataController.courseCount.all,
                     pass: courseDataController.courseCount.pass,
-                    failed: courseDataController.courseCount.failed),
+                    failed: courseDataController.courseCount.failed,
+                    score: courseDataController.credit.value),
                 const SizedBox(height: 10),
                 OtherActionCard(),
                 const SizedBox(height: 20), // 底部留白

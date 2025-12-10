@@ -7,9 +7,10 @@ import 'package:igzut/route/route.dart';
 import 'package:igzut/service/auth_service.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const IGZUT());
-  await FlutterDisplayMode.setHighRefreshRate();
   if (Platform.isAndroid) {
+    await FlutterDisplayMode.setHighRefreshRate();
     SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         systemNavigationBarColor:

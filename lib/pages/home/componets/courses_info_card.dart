@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 
 class CoursesInfoCard extends StatelessWidget {
   const CoursesInfoCard(
-      {super.key, required this.all, required this.pass, required this.failed});
+      {super.key,
+      required this.all,
+      required this.pass,
+      required this.failed,
+      required this.score});
   final int all;
   final int pass;
   final int failed;
+  final String score;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,6 +32,18 @@ class CoursesInfoCard extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(height: 5),
+                    InkWell(
+                      onTap: () {},
+                      child: Padding(
+                          padding: EdgeInsets.only(top: 5, bottom: 5),
+                          child: Row(
+                            children: [
+                              Icon(Icons.radar_outlined),
+                              Text(" 已修学分 $score",
+                                  style: TextStyle(fontFamily: "NotoSerif"))
+                            ],
+                          )),
+                    ),
                     InkWell(
                       onTap: () {},
                       child: Padding(

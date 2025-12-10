@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 class CreditEarnCard extends StatelessWidget {
   const CreditEarnCard(
       {super.key,
-      required this.credit,
+      required this.weightedAverageScore,
       required this.name,
       required this.studentNumber});
-  final String credit;
+  final String weightedAverageScore;
   final String name;
   final String studentNumber;
   @override
@@ -19,7 +19,7 @@ class CreditEarnCard extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "学分",
+                  "加权",
                   textAlign: TextAlign.start,
                   style: TextStyle(fontSize: 24),
                 ),
@@ -33,10 +33,10 @@ class CreditEarnCard extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            credit,
+                            weightedAverageScore,
                             style: TextStyle(
                                 fontFamily: "NotoSerif",
-                                fontSize: 48,
+                                fontSize: 40,
                                 fontWeight: FontWeight.bold),
                           ),
                         ],

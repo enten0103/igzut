@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:gzu_zf_core/gzu_zf_core.dart';
 import 'package:igzut/route/route.dart';
 import 'package:igzut/service/auth_service.dart';
-import 'package:igzut/tools/show_toast.dart';
+import 'package:igzut/tools/side_banner.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -27,22 +27,22 @@ class _LoginPageState extends State<LoginPage> {
         var service = AuthService();
         await service.login(username, password);
         Get.put(service, permanent: true);
-        Get.overlayContext?.showToast("登录成功");
+        SideBanner.info("登录成功");
         Get.offNamed(RouteConfig.indexPage);
       } catch (e) {
         if (e is PasswordOrUsernameWrong) {
-          Get.overlayContext?.showToast("账号或密码错误");
+          SideBanner.info("账号或密码错误");
         } else if (e is DioException) {
           var error = e.error;
           if (error is SchoolNetCannotAccess) {
-            Get.overlayContext?.showToast("无法连接至校园网");
+            SideBanner.info("无法连接至校园网");
           } else if (error is CannotParse) {
-            Get.overlayContext?.showToast("未知错误");
+            SideBanner.info("未知错误");
           } else if (error is NetNarrow) {
-            Get.overlayContext?.showToast("网络拥挤");
+            SideBanner.info("网络拥挤");
           }
         } else {
-          Get.overlayContext?.showToast("未知错误！");
+          SideBanner.info("未知错误！");
         }
       }
       setState(() {

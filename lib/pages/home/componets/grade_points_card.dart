@@ -36,7 +36,7 @@ class GradePointsCard extends StatelessWidget {
                             gradePoint,
                             style: TextStyle(
                                 fontFamily: "NotoSerif",
-                                fontSize: 48,
+                                fontSize: 40,
                                 fontWeight: FontWeight.bold),
                           ),
                         ],

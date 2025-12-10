@@ -3,7 +3,7 @@ import 'package:gzu_zf_core/gzu_zf_core.dart';
 import 'package:igzut/controllers/common_controller.dart';
 import 'package:igzut/service/course_service.dart';
 import 'package:igzut/service/score_service.dart';
-import 'package:igzut/tools/show_toast.dart';
+import 'package:igzut/tools/side_banner.dart';
 import 'package:igzut/tools/types.dart';
 
 class CourseDataController extends CommonController {
@@ -22,6 +22,7 @@ class CourseDataController extends CommonController {
 
   var gradePoint = "--".obs;
   var credit = "--".obs;
+  var weightedAverageScore = "--".obs;
 
   @override
   void onInit() async {
@@ -45,6 +46,7 @@ class CourseDataController extends CommonController {
     this.courseList.addAll(fullCourseList);
     gradePoint.value = calcGradePoint(scoreList);
     credit.value = calcCredit(scoreList);
+    weightedAverageScore.value = calcWeightedAverageScore(scoreList);
     courseCount = calcCourseCount(scoreList, courseList);
     terms.addAll(extraTerms(courseList));
     natures.addAll(extraNatures(courseList));
@@ -53,6 +55,26 @@ class CourseDataController extends CommonController {
 
   static List<String> extraNatures(List<Course> courseList) =>
       courseList.map((e) => e.courseNature).toSet().toList();
+
+  static String calcWeightedAverageScore(List<Score> scoreList) {
+    if (scoreList.isEmpty) return "__";
+    try {
+      var totalCredit = 0.0;
+      var totalScore = 0.0;
+      for (var score in scoreList) {
+        var credit = double.parse(score.credit);
+        var s = double.tryParse(score.score);
+        if (s != null) {
+          totalCredit += credit;
+          totalScore += s * credit;
+        }
+      }
+      if (totalCredit == 0) return "__";
+      return (totalScore / totalCredit).toStringAsFixed(2);
+    } catch (e) {
+      return "__";
+    }
+  }
 
   static String calcCredit(List<Score> scoreList) {
     if (scoreList.isEmpty) return "__";
@@ -112,10 +134,10 @@ class CourseDataController extends CommonController {
   void onLogin() async {
     var scoreService = ScoreService();
     var courseService = CourseService();
-    Get.overlayContext?.showToast("数据更新中...");
+    SideBanner.info("数据更新中...");
     var scoreList = (await scoreService.updateScoreList()).reversed.toList();
     var courseList = (await courseService.updateCourseList()).reversed.toList();
-    Get.overlayContext?.showToast("更新成功");
+    SideBanner.info("更新成功");
     scores.clear();
     scores.addAll(scoreList);
     courses.clear();
@@ -135,6 +157,7 @@ class CourseDataController extends CommonController {
     this.courseList.addAll(fullCourseList);
     gradePoint.value = calcGradePoint(scoreList);
     credit.value = calcCredit(scoreList);
+    weightedAverageScore.value = calcWeightedAverageScore(scoreList);
     courseCount = calcCourseCount(scoreList, courseList);
     terms.clear();
     terms.addAll(extraTerms(courseList));
