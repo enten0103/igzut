@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:igzut/controllers/course_data_controller.dart';
+import 'package:igzut/controllers/exam_data_controller.dart';
 import 'package:igzut/pages/schedule/componets/term_selector.dart';
 import 'package:igzut/pages/schedule/controller.dart';
 import 'package:igzut/pages/schedule/subpage/curriculum_page.dart';
@@ -12,13 +13,14 @@ class SchedulePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheduleController = Get.find<ScheduleController>();
-    final dataController = Get.find<CourseDataController>();
+    final courseDataController = Get.find<CourseDataController>();
+    final examDataController = Get.find<ExamDataController>();
     return Scaffold(
       appBar: AppBar(
         leading: Icon(Icons.schedule),
         title: Text("日程"),
         actions: [
-          TermSelector(terms: dataController.terms),
+          TermSelector(terms: courseDataController.terms),
           SizedBox(
               width: 100,
               child: TabBar(
@@ -34,8 +36,11 @@ class SchedulePage extends StatelessWidget {
           controller: scheduleController.tabController,
           children: [
             CurriculumPage(
-                courses: dataController.courses, terms: dataController.terms),
-            ExaminationPage() // Placeholder for schedule content
+                courses: courseDataController.courses,
+                terms: courseDataController.terms),
+            ExaminationPage(
+                exams: examDataController.examList,
+                terms: courseDataController.terms)
           ],
         ),
       ),

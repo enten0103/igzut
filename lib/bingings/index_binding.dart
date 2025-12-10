@@ -1,5 +1,6 @@
 import 'package:get/instance_manager.dart';
 import 'package:igzut/controllers/course_data_controller.dart';
+import 'package:igzut/controllers/exam_data_controller.dart';
 import 'package:igzut/controllers/user_info_controller.dart';
 import 'package:igzut/pages/course/controller.dart';
 import 'package:igzut/pages/home/controller.dart';
@@ -15,5 +16,6 @@ class IndexBinding implements Bindings {
     Get.lazyPut(() => CourseController());
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => (ScheduleController()));
+    Get.lazyPut(() => (ExamDataController()));
   }
 }
